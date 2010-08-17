@@ -1,11 +1,9 @@
 import datetime
 from persistent import Persistent
-from persistent.mapping import PersistentMapping
+from repoze.folder import Folder
 
-class Pages(PersistentMapping): # repoze.folder
-
-    __name__ = None
-    __parent__ = None
+class Pages(Folder):
+    pass
 
 class Page(Persistent):
     def __init__(self, data, date=None):
@@ -22,8 +20,6 @@ def appmaker(zodb_root):
 
         page1 = Page("This is a page")
         app_root['page1'] = page1
-        page1.__name__ = "page1"
-        page1.__parent__ = app_root
 
         import transaction
         transaction.commit()
