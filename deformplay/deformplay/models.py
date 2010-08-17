@@ -1,4 +1,4 @@
-import datetime
+
 from persistent import Persistent
 from repoze.folder import Folder
 
@@ -6,12 +6,12 @@ class Pages(Folder):
     pass
 
 class Page(Persistent):
-    def __init__(self, data, date=None):
+    def __init__(self, data, date=None, dublincore=None):
         self.data = data
-        if not date:
-            self.date=datetime.date.today()
+        if dublincore == None:
+            self.dublincore = {}
         else:
-            self.date = date
+            self.dublincore = dublincore
 
 def appmaker(zodb_root):
     if not 'app_root' in zodb_root:

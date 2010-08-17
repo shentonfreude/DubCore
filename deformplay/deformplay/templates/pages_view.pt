@@ -15,6 +15,9 @@
 </div>
 <div id="header">
   <div id="menu">
+    <ul>
+      <li><a href="${page_add_url}">Add Page</a></li>
+    </ul>
   </div>
 </div>
 <!-- end header -->
@@ -24,16 +27,18 @@
     <!-- start content -->
     <div id="content">
       <div class="post">
-	[post]
+	Pages
       </div>
-      <ul tal:repeat="page_url page_urls">
-	<li><a href="${page_url[1]}">${page_url[0]}</a></li>
+      <ul>
+	<tal:block tal:repeat="page_url page_urls">
+	  <li><a href="${page_url[1]}">${page_url[0]}</a></li>
+	</tal:block>
       </ul>
     </div>
     <!-- end content -->
     <!-- start sidebar -->
     <div id="sidebar">
-      <a href="${page_add_url}">Add Page</a>
+      [sidebar]
     </div>
     <!-- end sidebar -->
     <div style="clear: both;">&nbsp;</div>

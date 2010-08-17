@@ -18,6 +18,7 @@
     <ul>
       <li><a href="${request.application_url}">Up to top</a></li>
       <li><a href="${page_edit_url}">Edit Page</a></li>
+      <li><a href="${page_edit_dc_url}">Edit DublinCore</a></li>
     </ul>
   </div>
 </div>
@@ -27,15 +28,24 @@
   <div id="page">
     <!-- start content -->
     <div id="content">
+      <div class="post">
+	Name: ${page.__name__}
+      </div>
       <div id="data">
 	${page.data}
       </div>
     </div>
     <!-- end content -->
     <!-- start sidebar -->
-    <div id="sidebar">
-      <div id="name">Name: ${page.__name__}</div>
-      <div id="date">Date: ${page.date}</div>
+    <div id="sidebarXXX">
+      <h2>DublinCore</h2>
+      <ul>
+	<tal:block tal:repeat="k,v page.dublincore.items()">
+	  <span tal:condition="v|None">
+	    <li>${k}: ${v}</li>
+	  </span>
+	</tal:block>
+      </ul>
     </div>
     <!-- end sidebar -->
     <div style="clear: both;">&nbsp;</div>

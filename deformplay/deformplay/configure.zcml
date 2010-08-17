@@ -29,6 +29,13 @@
       renderer="templates/page_edit.pt"
       />
 
+  <view
+      context=".models.Page"
+      name="page_edit_dc"
+      view=".views.page_edit_dc"
+      renderer="templates/page_edit_dc.pt"
+      />
+
   <static
      name="static"
      path="templates/static"

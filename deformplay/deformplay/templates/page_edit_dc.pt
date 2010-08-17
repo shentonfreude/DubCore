@@ -3,7 +3,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Page ${add_or_edit}</title>
+  <title>Page Edit Dublin Core</title>
   <meta name="keywords" content="python web application" />
   <meta name="description" content="repoze.bfg web application" />
 
@@ -22,12 +22,10 @@
 
 <body>
 
-<div id="header">
-  <div id="menu">
-    <ul>
-      <li><a href="${request.application_url}">Up to top</a></li>
-    </ul>
-  </div>
+<div id="menu">
+  <ul>
+    <li><a href="${request.application_url}">Up to top</a></li>
+  </ul>
 </div>
 
 <div id="wrapper">
@@ -36,7 +34,7 @@
     <!-- start content -->
     <div id="content">
       <div class="post">
-	Page ${add_or_edit}
+	Page Edit DublinCore
       </div>
       <form action="" method="POST">
 	<div tal:content="structure form">FORM</div>
@@ -45,7 +43,7 @@
     <!-- end content -->
     <!-- start sidebar -->
     <div id="sidebar">
-      <a href="${request.application_url}">Up to top</a>
+      [sidebar]
     </div>
     <!-- end sidebar -->
     <div style="clear: both;">&nbsp;</div>
