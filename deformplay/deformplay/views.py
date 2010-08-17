@@ -10,6 +10,8 @@ from deform import ValidationFailure
 #from repoze.bfg.traversal import model_path
 import transaction
 
+# TODO: use the new wysiwyg text area editor.
+
 PROJECT = "Full Of Knobs"
 
 def pages_view(context, request):
@@ -27,6 +29,7 @@ def page_view(context, request):
             'page_edit_dc_url': model_url(context, request, "@@page_edit_dc")
             }
 
+# TODO: make list-ish things sequences of Schemas
 class DublinCoreSchema(MappingSchema):
     title = SchemaNode(String())
     creator = SchemaNode(String(), description="Creators", missing='') # TODO list
@@ -65,14 +68,15 @@ def page_add(context, request):
             return {'project': PROJECT,
                     'form': e.render(),
                     'add_or_edit': add_or_edit}
+        # Is there a way to get this -- the date especialy -- from the schema?
         dublincore = {'title': appstruct['title'],
                       'description': appstruct['description'],
+                      'date': datetime.date.today(),
                       }
         page = Page(appstruct['data'], dublincore=dublincore)
         __name__ = canonize(appstruct['title'])
         # TODO: if title changed remove old __name__
         context[__name__] = page
-        #Needed?? transaction.commit()
         return HTTPFound(location=model_url(page, request))
     return {'project': PROJECT,
             'form': form.render(),
@@ -98,7 +102,6 @@ def page_edit(context, request):
         context.dublincore['title'] = appstruct['title']
         context.dublincore['description'] = appstruct['description']
         return HTTPFound(location=model_url(context, request))
-    import pdb; pdb.set_trace()
     # Is there an easier way to do this?
     #appstruct = context.__dict__
     appstruct = {'data': context.data,
