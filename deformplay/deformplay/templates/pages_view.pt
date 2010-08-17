@@ -33,7 +33,7 @@
     <!-- end content -->
     <!-- start sidebar -->
     <div id="sidebar">
-      sidebar and grill
+      <a href="${page_add_url}">Add Page</a>
     </div>
     <!-- end sidebar -->
     <div style="clear: both;">&nbsp;</div>

@@ -15,6 +15,7 @@
 </div>
 <div id="header">
   <div id="menu">
+    [menu]
   </div>
 </div>
 <!-- end header -->
@@ -36,7 +37,12 @@
     <!-- end content -->
     <!-- start sidebar -->
     <div id="sidebar">
-      [sidebar]
+      <div>
+	<a href="${request.application_url}">Up to top</a>
+      </div>
+      <div tal:condition="page_edit_url|None">
+	<a href="${page_edit_url}">Edit Page</a>
+      </div>
     </div>
     <!-- end sidebar -->
     <div style="clear: both;">&nbsp;</div>
