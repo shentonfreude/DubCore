@@ -87,6 +87,18 @@ input, textarea, select {
 	color: #333333;
 }
 
+#description {
+    color: #bbbbbb;
+}
+
+#dublincore {
+    color: #8BD80E;
+    width: 210px;
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+
 #wrapper {
 	margin: 0;
 	padding: 0;
@@ -199,7 +211,6 @@ input, textarea, select {
 #content {
 	float: left;
 	width: 410px;
-	
 }
 
 /* Post */

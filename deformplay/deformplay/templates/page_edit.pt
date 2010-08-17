@@ -43,11 +43,13 @@
       </form>
     </div>
     <!-- end content -->
+
     <!-- start sidebar -->
     <div id="sidebar">
-      <a href="${request.application_url}">Up to top</a>
+      [sidebar remove me]
     </div>
     <!-- end sidebar -->
+
     <div style="clear: both;">&nbsp;</div>
   </div>
 </div>

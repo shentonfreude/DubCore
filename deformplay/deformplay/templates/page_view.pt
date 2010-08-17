@@ -28,16 +28,18 @@
   <div id="page">
     <!-- start content -->
     <div id="content">
-      <div class="post">
-	Name: ${page.__name__}
-      </div>
+      <h1>${page.dublincore.title}</h1>
+      <div id="description">${page.dublincore.description}</div>
+      <!-- <div class="post"> -->
+      <!-- 	Name: ${page.__name__} -->
+      <!-- </div> -->
       <div id="data">
 	${page.data}
       </div>
     </div>
     <!-- end content -->
     <!-- start sidebar -->
-    <div id="sidebarXXX">
+    <div id="dublincore">
       <h2>DublinCore</h2>
       <ul>
 	<tal:block tal:repeat="k,v page.dublincore.items()">
