@@ -15,7 +15,10 @@
 </div>
 <div id="header">
   <div id="menu">
-    [menu]
+    <ul>
+      <li><a href="${request.application_url}">Up to top</a></li>
+      <li><a href="${page_edit_url}">Edit Page</a></li>
+    </ul>
   </div>
 </div>
 <!-- end header -->
@@ -24,12 +27,6 @@
   <div id="page">
     <!-- start content -->
     <div id="content">
-      <div class="post">
-	[post]
-      </div>
-      <div id="date">
-	Date: ${page.date}
-      </div>
       <div id="data">
 	${page.data}
       </div>
@@ -37,12 +34,8 @@
     <!-- end content -->
     <!-- start sidebar -->
     <div id="sidebar">
-      <div>
-	<a href="${request.application_url}">Up to top</a>
-      </div>
-      <div tal:condition="page_edit_url|None">
-	<a href="${page_edit_url}">Edit Page</a>
-      </div>
+      <div id="name">Name: ${page.__name__}</div>
+      <div id="date">Date: ${page.date}</div>
     </div>
     <!-- end sidebar -->
     <div style="clear: both;">&nbsp;</div>

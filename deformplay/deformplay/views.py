@@ -55,18 +55,16 @@ def page_edit(context, request):
     dcschema = DCSchema()
     dcform = Form(dcschema, buttons=('submit',))
     if 'submit' in request.params: # or method==POST
-        print "FORM SUBMITTED"
         controls = request.POST.items()
         try:
             appstruct = dcform.validate(controls)
-            print "PAGE ADD appstruct=%s" % appstruct
         except ValidationFailure, e:
             return {'form': e.render(),
                     'add_or_edit': add_or_edit}
-        context['date'] = appstruct['date']
-        context['data'] = appstruct['data']
+        context.date = appstruct['date']
+        context.data = appstruct['data']
         return HTTPFound(location=model_url(context, request))
-    # TODO: populate form with context
-    return {'form': dcform.render(),
+    appstruct = context.__dict__
+    return {'form': dcform.render(appstruct),
             'add_or_edit': add_or_edit,
             }
