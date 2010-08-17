@@ -1,0 +1,42 @@
+<configure xmlns="http://namespaces.repoze.org/bfg">
+
+  <!-- this must be included for the view declarations to work -->
+  <include package="repoze.bfg.includes" />
+
+  <view
+     context=".models.Pages"
+     view=".views.pages_view"
+     renderer="templates/pages_view.pt"
+     />
+
+  <view
+     context=".models.Page"
+     view=".views.page_view"
+     renderer="templates/page_view.pt"
+     />
+
+  <view
+      context=".models.Pages"
+      name="page_add"
+      view=".views.page_add"
+      renderer="templates/page_edit.pt"
+      />
+
+  <view
+      context=".models.Page"
+      name="page_edit"
+      view=".views.page_edit"
+      renderer="templates/page_edit.pt"
+      />
+
+  <static
+     name="static"
+     path="templates/static"
+     />
+
+  <static
+      name="deform_static"
+      path='deform:static'
+      />
+
+</configure>

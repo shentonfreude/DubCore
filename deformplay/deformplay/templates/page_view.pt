@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>${project} Application</title>
+<meta name="keywords" content="python web application" />
+<meta name="description" content="repoze.bfg web application" />
+<link href="${request.application_url}/static/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- start header -->
+<div id="logo">
+  <h2><code>${project}</code>, a <code>repoze.bfg</code> application</h2>
+</div>
+<div id="header">
+  <div id="menu">
+  </div>
+</div>
+<!-- end header -->
+<div id="wrapper">
+  <!-- start page -->
+  <div id="page">
+    <!-- start content -->
+    <div id="content">
+      <div class="post">
+	[post]
+      </div>
+      <div id="date">
+	Date: ${page.date}
+      </div>
+      <div id="data">
+	${page.data}
+      </div>
+    </div>
+    <!-- end content -->
+    <!-- start sidebar -->
+    <div id="sidebar">
+      [sidebar]
+    </div>
+    <!-- end sidebar -->
+    <div style="clear: both;">&nbsp;</div>
+  </div>
+</div>
+<!-- end page -->
+<!-- start footer -->
+<div id="footer">
+[footer]
+</div>
+<!-- end footer -->
+</body>
+</html>
