@@ -12,10 +12,11 @@ requires = [
     'repoze.tm',
     'ZODB3',
     'repoze.folder',
+    'deform'
     ]
 
 setup(name='deformplay',
-      version='0.0',
+      version='0.1',
       description='deformplay',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
