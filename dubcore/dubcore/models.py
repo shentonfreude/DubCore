@@ -12,7 +12,6 @@ class Page(Persistent):
     """
     def __init__(self, data, dublincore):
         self.data = data
-        import pdb; pdb.set_trace()
         if not dublincore['date']:
             raise ValueError("Page.dublincore['date'] is empty")
         if not dublincore['title']:

@@ -33,8 +33,8 @@
       <!-- <div class="post"> -->
       <!-- 	Name: ${page.__name__} -->
       <!-- </div> -->
-      <div id="data">
-	${page.data}
+      <div id="data" tal:content="structure page.data">
+	PAGE DATA
       </div>
     </div>
     <!-- end content -->

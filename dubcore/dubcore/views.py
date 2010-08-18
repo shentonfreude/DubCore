@@ -9,10 +9,11 @@ from deform import widget
 from deform import ValidationFailure
 #from repoze.bfg.traversal import model_path
 import transaction
+from repoze.bfg.settings import get_settings
 
 # TODO: use the new wysiwyg text area editor.
 
-PROJECT = "Full Of Knobs"
+PROJECT = get_settings()['project']
 
 def pages_view(context, request):
     page_urls = [(context[p].dublincore['title'],
@@ -47,6 +48,8 @@ class DublinCoreSchema(MappingSchema):
     coverage = SchemaNode(String(),  missing='')
     rights = SchemaNode(String(),  missing='') # TODO textarea
 
+###class CreatorNode(
+
 class PageSchema(Schema):
     """Get Page fields and Plone-style uber-common DublinCore fields.
     __name__ like Plone 'id' generated from Title.
@@ -59,7 +62,7 @@ def page_add(context, request):
     add_or_edit = 'Add'
     schema = PageSchema()
     form = Form(schema, buttons=('submit',))
-    form['data'].widget = widget.TextAreaWidget(rows=10, cols=60)
+    form['data'].widget = widget.RichTextWidget(width=390, theme="advanced")
     if 'submit' in request.params: # or method==POST
         controls = request.POST.items()
         try:
@@ -88,7 +91,7 @@ def page_edit(context, request):
     add_or_edit = 'Edit'
     schema = PageSchema()
     form = Form(schema, buttons=('submit',))
-    form['data'].widget = widget.TextAreaWidget(rows=10, cols=60)
+    form['data'].widget = widget.RichTextWidget(width=390, theme="advanced")
     if 'submit' in request.params: # or method==POST
         controls = request.POST.items()
         try:
