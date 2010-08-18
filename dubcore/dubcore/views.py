@@ -3,17 +3,64 @@ from util import canonize
 from webob.exc import HTTPFound
 from models import Page
 from repoze.bfg.url import model_url
-from colander import Schema, SchemaNode, String, Date, MappingSchema
+from colander import Schema, SchemaNode, String, Date
+from colander import MappingSchema, SequenceSchema
+from colander import OneOf
 from deform import Form
 from deform import widget
 from deform import ValidationFailure
-#from repoze.bfg.traversal import model_path
-import transaction
 from repoze.bfg.settings import get_settings
 
-# TODO: use the new wysiwyg text area editor.
-
 PROJECT = get_settings()['project']
+LANGUAGE_LABELS = ['English', 'Spanish', 'Esperanto']
+LANGUAGES = zip(LANGUAGE_LABELS, LANGUAGE_LABELS)
+FORMAT_LABELS = ['html', 'rst', 'text']
+FORMAT_CHOICES = ['text/html', 'text/rst', 'text/plain']
+FORMATS = zip(FORMAT_CHOICES, FORMAT_LABELS)
+
+class Creators(SequenceSchema):
+    creator = SchemaNode(String(), missing='', title="Creator Name")
+
+class Subjects(SequenceSchema):
+    subject = SchemaNode(String(),
+                         title="Subject Keyword",
+                         description="Keyword or Tag",
+                         missing='')
+
+class Contributors(SequenceSchema):
+    contributor_name = SchemaNode(String(),
+                                  title="Contributor Name",
+                                  missing='')
+
+class DublinCoreSchema(MappingSchema):
+    title = SchemaNode(String())
+    creator = Creators()
+    subject = Subjects()
+    description = SchemaNode(
+        String(), missing='',
+        description="Short summary returned in search results")
+    publisher = SchemaNode(String(),  missing='')
+    contributor = Contributors()
+    date = SchemaNode(Date(),  default=datetime.date.today())
+    type_ = SchemaNode(String(),  name="type", missing='') # WTF is this?
+    format = SchemaNode(String(),  missing='',
+                        validator=OneOf(FORMAT_CHOICES))
+    identifier = SchemaNode(String(),  missing='')
+    source = SchemaNode(String(),  missing='')
+    language = SchemaNode(String(),  missing='', # should use AutoComplete
+                          validator=OneOf(LANGUAGE_LABELS))
+    relation = SchemaNode(String(),  missing='')
+    coverage = SchemaNode(String(),  missing='')
+    rights = SchemaNode(String(),  missing='')
+
+class PageSchema(Schema):
+    """Get Page fields and Plone-style uber-common DublinCore fields.
+    __name__ like Plone 'id' generated from Title.
+    """
+    title = DublinCoreSchema.title
+    description = DublinCoreSchema.description
+    data = SchemaNode(String(), description="Data for the page")
+
 
 def pages_view(context, request):
     page_urls = [(context[p].dublincore['title'],
@@ -24,39 +71,14 @@ def pages_view(context, request):
             }
 
 def page_view(context, request):
+    dc_schema = DublinCoreSchema()
+    dc_form = Form(dc_schema)
     return {'project': PROJECT,
             'page': context,
+            'dc_form': dc_form.render(context.dublincore, readonly=True),
             'page_edit_url': model_url(context, request, "@@page_edit"),
             'page_edit_dc_url': model_url(context, request, "@@page_edit_dc")
             }
-
-# TODO: make list-ish things sequences of Schemas
-class DublinCoreSchema(MappingSchema):
-    title = SchemaNode(String())
-    creator = SchemaNode(String(), description="Creators", missing='') # TODO list
-    subject = SchemaNode(String(), description="Keywords/Tags", missing='') # TODO should be list
-    description = SchemaNode(String(), description="Short summary returned in search results", missing='')
-    publisher = SchemaNode(String(),  missing='')
-    contributor = SchemaNode(String(),  missing='') # TODO list
-    date = SchemaNode(Date(),  default=datetime.date.today())
-    type_ = SchemaNode(String(),  missing='') # WTF is this?
-    format = SchemaNode(String(),  missing='') # TODO picklist: html, rst, ...
-    identifier = SchemaNode(String(),  missing='')
-    source = SchemaNode(String(),  missing='')
-    language = SchemaNode(String(),  missing='')
-    relation = SchemaNode(String(),  missing='')
-    coverage = SchemaNode(String(),  missing='')
-    rights = SchemaNode(String(),  missing='') # TODO textarea
-
-###class CreatorNode(
-
-class PageSchema(Schema):
-    """Get Page fields and Plone-style uber-common DublinCore fields.
-    __name__ like Plone 'id' generated from Title.
-    """
-    title = DublinCoreSchema.title
-    description = DublinCoreSchema.description
-    data = SchemaNode(String(), description="Data for the page")
 
 def page_add(context, request):
     add_or_edit = 'Add'
@@ -91,7 +113,7 @@ def page_edit(context, request):
     add_or_edit = 'Edit'
     schema = PageSchema()
     form = Form(schema, buttons=('submit',))
-    form['data'].widget = widget.RichTextWidget(width=390, theme="advanced")
+    form['data'].widget = widget.RichTextWidget(theme="advanced")
     if 'submit' in request.params: # or method==POST
         controls = request.POST.items()
         try:
@@ -121,6 +143,9 @@ def page_edit_dc(context, request):
     """Edit the DublinCore attributes of a Page."""
     schema = DublinCoreSchema()
     form = Form(schema, buttons=('submit',))
+    form['rights'].widget = widget.RichTextWidget()
+    form['language'].widget = widget.SelectWidget(values=LANGUAGES)
+    form['format'].widget = widget.SelectWidget(values=FORMATS)
     if 'submit' in request.params: # or method==POST
         controls = request.POST.items()
         try:

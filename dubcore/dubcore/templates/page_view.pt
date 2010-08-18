@@ -38,18 +38,10 @@
       </div>
     </div>
     <!-- end content -->
-    <!-- start sidebar -->
-    <div id="dublincore">
-      <h2>DublinCore</h2>
-      <ul>
-	<tal:block tal:repeat="k,v page.dublincore.items()">
-	  <span tal:condition="v|None">
-	    <li>${k}: ${v}</li>
-	  </span>
-	</tal:block>
-      </ul>
-    </div>
-    <!-- end sidebar -->
+
+    <h2>DublinCore</h2>
+    <div id="dublincore" tal:content="structure dc_form">DC FORM</div>
+
     <div style="clear: both;">&nbsp;</div>
   </div>
 </div>
