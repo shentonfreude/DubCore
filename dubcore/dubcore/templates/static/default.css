@@ -75,7 +75,7 @@ img.right {
 form {
 	margin: 0;
 	padding: 0;
-	background: #bbbbbb;
+	background: #eeeeee;
 }
 
 fieldset {
@@ -99,8 +99,7 @@ input, textarea, select {
 }
 
 #dublincore {
-    color: #8BD80E;
-    background: #333333;
+    color: #33cc00;
     width: 210px;
     float: right;
     margin: 0;
