@@ -1,6 +1,6 @@
 from repoze.bfg.configuration import Configurator
 from repoze.zodbconn.finder import PersistentApplicationFinder
-from deformplay.models import appmaker
+from dubcore.models import appmaker
 
 def app(global_config, **settings):
     """ This function returns a WSGI application.

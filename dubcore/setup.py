@@ -15,9 +15,9 @@ requires = [
     'deform'
     ]
 
-setup(name='deformplay',
+setup(name='dubcore',
       version='0.1',
-      description='deformplay',
+      description='dubcore',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -34,10 +34,10 @@ setup(name='deformplay',
       zip_safe=False,
       install_requires = requires,
       tests_require= requires,
-      test_suite="deformplay",
+      test_suite="dubcore",
       entry_points = """\
       [paste.app_factory]
-      app = deformplay.run:app
+      app = dubcore.run:app
       """
       )
 
