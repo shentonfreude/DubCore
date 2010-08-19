@@ -1,0 +1,11 @@
+===============
+DubCore Changes
+===============
+
+0.1 2010-08-19 Chris Shenton
+============================
+
+Initial checkin.
+
+For the RichTextWidget, you need a trunk version of Deform, as Reed
+O'Brien wrote it during the Oil Slick sprint.
