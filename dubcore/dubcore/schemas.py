@@ -11,20 +11,20 @@ FORMAT_LABELS = ['html', 'rst', 'text']
 FORMATS = zip(FORMAT_CHOICES, FORMAT_LABELS)
 
 class Creators(SequenceSchema):
-    creator = SchemaNode(String(), missing='', title="Creator Name")
+    creator = SchemaNode(String(),
+                         title="Creator Name",
+                         missing='')
 
 class Subjects(SequenceSchema):
     subject = SchemaNode(String(),
                          title="Subject Keyword",
                          description="Keyword or Tag",
                          missing='')
-Subjects.category = None
 
 class Contributors(SequenceSchema):
     contributor_name = SchemaNode(String(),
                                   title="Contributor Name",
                                   missing='')
-Contributors.category = None
 
 class DublinCoreSchema(MappingSchema):
     title = SchemaNode(String())
